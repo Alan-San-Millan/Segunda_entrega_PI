@@ -1,3 +1,4 @@
+from cmath import rect
 import pygame, sys
 
 from pygame.locals import *
@@ -21,6 +22,7 @@ izquierda=False
 derecha=False
 verdadero_scroll=[0,0]
 W,H=1200,700
+picos={}
 screen = pygame.display.set_mode((W,H)) 
 
 display = pygame.Surface((300, 200))
@@ -34,9 +36,11 @@ tierra_image = pygame.image.load('dirtu.png')
 tierra_pasto_image = pygame.image.load('1.png')
 tierra_1_image= pygame.image.load("dirt2.png")
 picos_image=pygame.image.load("picos.png")
+sol_image=pygame.image.load("sol.png")
+
+
 
 TILE_SIZE = 16
-
 def cargar_mapa(camino):
     f=open(camino +".txt","r")
     dato=f.read()
@@ -87,6 +91,7 @@ air_timer = 0
 player_rect = pygame.Rect(150, 150, player_image.get_width(), player_image.get_height())
 test_rect = pygame.Rect(100,100,100,50)
 while True: # Bucle del juego
+    
     verdadero_scroll[0] +=(player_rect.x-verdadero_scroll[0]-150)/5
     verdadero_scroll[1]+=(player_rect.y-verdadero_scroll[1]-100)/5
     scroll=verdadero_scroll.copy()
@@ -136,6 +141,7 @@ while True: # Bucle del juego
         air_timer += 1
 
     display.blit(player_image, (player_rect.x  -scroll[0], player_rect.y -scroll[1]))
+    display.blit(sol_image,(265,5))
 
     for event in pygame.event.get():
         if event.type==QUIT:
